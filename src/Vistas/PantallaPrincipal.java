@@ -133,7 +133,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void jmNuevaMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNuevaMateriaActionPerformed
         viewEsc.removeAll();
         viewEsc.repaint();
-        ViewMateria vm = new ViewMateria();
+        VistaMateria vm = new VistaMateria();
         viewEsc.add(vm);
         vm.setVisible(true);
     }//GEN-LAST:event_jmNuevaMateriaActionPerformed
@@ -141,7 +141,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void jmFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFormularioActionPerformed
         viewEsc.removeAll();
         viewEsc.repaint();
-        ViewInscripcion vi = new ViewInscripcion();
+        VistaInscripcion vi = new VistaInscripcion();
         viewEsc.add(vi);
         vi.setVisible(true);
     }//GEN-LAST:event_jmFormularioActionPerformed
@@ -149,7 +149,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void jmNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNuevoAlumnoActionPerformed
         viewEsc.removeAll();
         viewEsc.repaint();
-        ViewAlumno va = new ViewAlumno();
+        VistaAlumno va = new VistaAlumno();
         viewEsc.add(va);
         va.setVisible(true);
     }//GEN-LAST:event_jmNuevoAlumnoActionPerformed

@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  *
  * @author Guido Caballero
  */
-public class ViewAlumno extends javax.swing.JInternalFrame {
+public class VistaAlumno extends javax.swing.JInternalFrame {
     private HashSet<Alumno> listaAlumnos;
     /**
      * Creates new form ViewAlumno
      */
-    public ViewAlumno() {
+    public VistaAlumno() {
         initComponents();
         listaAlumnos = PantallaPrincipal.getListaAlumnos();
         jlError.setVisible(false);

@@ -6,6 +6,7 @@
 package caballero.practico7v2;
 
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,7 +57,10 @@ public class Alumno {
     }
     
     public void agregarMateria(Materia m){
-        this.materias.add(m);
+        if(this.materias.add(m))
+            JOptionPane.showMessageDialog(null,"El/la alumno/a fue inscripto/a con éxito.");
+        else
+            JOptionPane.showMessageDialog(null,"El alumno ya se encuentra inscripto en la materia.");     
     }
     public int cantidadMaterias(){
         return this.materias.size();

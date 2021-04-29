@@ -8,18 +8,21 @@ package Vistas;
 import caballero.practico7v2.*;
 import java.util.HashSet;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Guido Caballero
  */
-public class ViewInscripcion extends javax.swing.JInternalFrame {
+public class VistaInscripcion extends javax.swing.JInternalFrame {
 
     HashSet <Materia> listaMaterias;
     HashSet <Alumno> listaAlumnos;
 
-    public ViewInscripcion() {
+    public VistaInscripcion() {
         initComponents();
+        jcAlumnos.removeAll();
+        jcMaterias.removeAll();
         listaMaterias = PantallaPrincipal.getListaMaterias();
         listaAlumnos = PantallaPrincipal.getListaAlumnos();
         for (Materia m:listaMaterias){
@@ -28,6 +31,7 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
         for(Alumno a: listaAlumnos){
             jcAlumnos.addItem(a);
         }
+        jlError.setVisible(false);
     }
 
     /**
@@ -46,8 +50,8 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
         jlError = new javax.swing.JLabel();
         jcMaterias = new javax.swing.JComboBox<>();
         jcAlumnos = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbInscribir = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
         jLabel1.setText("Seleccione una materia");
@@ -63,9 +67,31 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
         jlError.setText("El alumno ya se encuentra inscripto en esta materia.");
         jlError.setToolTipText("");
 
-        jButton1.setText("Inscribir");
+        jcMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcMateriasActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Salir");
+        jcAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcAlumnosActionPerformed(evt);
+            }
+        });
+
+        jbInscribir.setText("Inscribir");
+        jbInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbInscribirActionPerformed(evt);
+            }
+        });
+
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,9 +114,9 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
                         .addComponent(jlError)
                         .addGap(45, 45, 45))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbInscribir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -114,8 +140,8 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
                 .addComponent(jlError)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jbSalir)
+                    .addComponent(jbInscribir))
                 .addGap(22, 22, 22))
         );
 
@@ -133,14 +159,37 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
+        Alumno a;
+        Materia m;
+        a =(Alumno)jcAlumnos.getSelectedItem();
+        m =(Materia)jcMaterias.getSelectedItem();
+        listaAlumnos.remove(a);
+        a.agregarMateria(m);
+        listaAlumnos.add(a);        
+        PantallaPrincipal.setListaAlumnos(listaAlumnos);
+    }//GEN-LAST:event_jbInscribirActionPerformed
+
+    private void jcMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcMateriasActionPerformed
+        jlError.setVisible(false);
+    }//GEN-LAST:event_jcMateriasActionPerformed
+
+    private void jcAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcAlumnosActionPerformed
+        jlError.setVisible(false);
+    }//GEN-LAST:event_jcAlumnosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbInscribir;
+    private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Alumno> jcAlumnos;
     private javax.swing.JComboBox<Materia> jcMaterias;
     private javax.swing.JLabel jlError;

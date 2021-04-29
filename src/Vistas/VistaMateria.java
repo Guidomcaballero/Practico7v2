@@ -13,11 +13,11 @@ import javax.swing.JOptionPane;
  *
  * @author Guido Caballero
  */
-public class ViewMateria extends javax.swing.JInternalFrame {
+public class VistaMateria extends javax.swing.JInternalFrame {
     
     HashSet <Materia> listaMaterias;
     
-    public ViewMateria() {
+    public VistaMateria() {
         initComponents();
         listaMaterias = PantallaPrincipal.getListaMaterias();
         jlError.setVisible(false);
