@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 /**
  *
- * @author Usuario
+ * @author Guido Caballero
  */
 public class PantallaPrincipal extends javax.swing.JFrame {
 
@@ -70,7 +70,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Alumnos");
 
         jmNuevoAlumno.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
-        jmNuevoAlumno.setText("Alta de alumnos");
+        jmNuevoAlumno.setText("Alta de Alumno");
         jmNuevoAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmNuevoAlumnoActionPerformed(evt);
@@ -130,14 +130,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNuevoAlumnoActionPerformed
-        viewEsc.removeAll();
-        viewEsc.repaint();
-        ViewAlumno va = new ViewAlumno(listaAlumnos);
-        viewEsc.add(va);
-        va.setVisible(true);
-    }//GEN-LAST:event_jmNuevoAlumnoActionPerformed
-
     private void jmNuevaMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNuevaMateriaActionPerformed
         viewEsc.removeAll();
         viewEsc.repaint();
@@ -153,6 +145,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         viewEsc.add(vi);
         vi.setVisible(true);
     }//GEN-LAST:event_jmFormularioActionPerformed
+
+    private void jmNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNuevoAlumnoActionPerformed
+        viewEsc.removeAll();
+        viewEsc.repaint();
+        ViewAlumno va = new ViewAlumno();
+        viewEsc.add(va);
+        va.setVisible(true);
+    }//GEN-LAST:event_jmNuevoAlumnoActionPerformed
 
     /**
      * @param args the command line arguments

@@ -7,19 +7,21 @@ package Vistas;
 
 import caballero.practico7v2.*;
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Usuario
+ * @author Guido Caballero
  */
 public class ViewAlumno extends javax.swing.JInternalFrame {
-    private HashSet<Alumno> lA;
+    private HashSet<Alumno> listaAlumnos;
     /**
      * Creates new form ViewAlumno
      */
-    public ViewAlumno(HashSet<Alumno> lA) {
+    public ViewAlumno() {
         initComponents();
-        this.lA = lA;
+        listaAlumnos = PantallaPrincipal.getListaAlumnos();
+        jlError.setVisible(false);
     }
 
     /**
@@ -42,6 +44,7 @@ public class ViewAlumno extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jbNuevo = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
+        jlError = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 36)); // NOI18N
         jLabel1.setText("Formulario de Alumnos");
@@ -85,11 +88,19 @@ public class ViewAlumno extends javax.swing.JInternalFrame {
             }
         });
 
+        jlError.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(204, 0, 0));
+        jlError.setText("El alumno que intenta cargar ya esta dentro del sistema.");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -108,10 +119,10 @@ public class ViewAlumno extends javax.swing.JInternalFrame {
                                 .addComponent(jtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jtLegajo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jlError)
+                .addGap(29, 29, 29))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,11 +141,13 @@ public class ViewAlumno extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlError, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo)
                     .addComponent(jbGuardar))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbSalir)
                 .addContainerGap())
         );
@@ -150,9 +163,9 @@ public class ViewAlumno extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -160,11 +173,37 @@ public class ViewAlumno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        HashSet<Materia> listaMaterias = PantallaPrincipal.getListaMaterias();
+        int leg=0;
+        String name="",lastname="";
+        boolean eLanza = false;
+        try{
+            name = jtNombre.getText();
+            lastname = jtApellido.getText();
+            leg = Integer.parseInt(jtLegajo.getText());
+        } catch(Exception e){
+            eLanza = true;
+        }
+        if(eLanza){
+            JOptionPane.showMessageDialog(null, "Error al crear el alumno. Repete el tipo de datos de cada campo.");
+            jbNuevoActionPerformed(evt);
+        }else{
+            Alumno a = new Alumno(leg,name,lastname);
+            if(listaAlumnos.add(a)){
+                PantallaPrincipal.setListaAlumnos(listaAlumnos);
+                JOptionPane.showMessageDialog(null,"Alumno creado exitosamente.");
+                jbNuevoActionPerformed(evt);
+            }else
+                jlError.setVisible(true);
+        }
+        
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        // TODO add your handling code here:
+        jtLegajo.setText("");
+        jtNombre.setText("");
+        jtApellido.setText("");
+        jlError.setVisible(false);
+        
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -181,6 +220,7 @@ public class ViewAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JLabel jlError;
     private javax.swing.JTextField jtApellido;
     private javax.swing.JTextField jtLegajo;
     private javax.swing.JTextField jtNombre;
